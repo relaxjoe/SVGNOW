@@ -1,3 +1,16 @@
+const readline = require('readline');
+const fs = require('fs');
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+const askQuestion = (question) => {
+  return new Promise((resolve) => {
+    rl.question(question, (input) => resolve(input));
+  });
+};
 
 const createSvg = (text, textColor, shape, shapeColor) => {
   let shapeSvg = '';
@@ -16,6 +29,12 @@ const createSvg = (text, textColor, shape, shapeColor) => {
       process.exit(1);
   }
 
+  return `<svg width="300" height="200" xmlns="http://www.w3.org/2000/svg">
+${shapeSvg}
+<text x="150" y="100" dominant-baseline="middle" text-anchor="middle" fill="${textColor}">${text}</text>
+</svg>`;
+};
+
 const main = async () => {
   const text = await askQuestion("Enter up to three characters: ");
   const textColor = await askQuestion("Enter the text color (name or hex): ");
@@ -23,5 +42,12 @@ const main = async () => {
   const shapeColor = await askQuestion("Enter the shape's color (name or hex): ");
 
   const svgContent = createSvg(text.substring(0, 3), textColor, shape, shapeColor);
+
+  fs.writeFile('logo.svg', svgContent, (err) => {
+    if (err) throw err;
+    console.log('Generated logo.svg');
+    rl.close();
+  });
+};
 
 main();

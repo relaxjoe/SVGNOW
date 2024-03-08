@@ -2,6 +2,8 @@
 
 The SVG Logo Generator is a simple command-line application that creates customizable SVG logos based on user input. Users can specify text (up to three characters), text color, shape, and shape color to generate a unique SVG logo file named `logo.svg`. 
 
+https://youtu.be/v2z8T_d6Dn8
+
 ## Features
 
 - **Custom Text**: Enter up to three characters to be included in the logo.
